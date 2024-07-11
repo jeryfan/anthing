@@ -1,0 +1,20 @@
+
+
+name: deploy
+on: push
+jobs:
+    deploy:
+        name: 打包并部署
+        runs-on: ubuntu-latest
+        steps:
+            - name: 拷贝文件
+              uses: actions/checkout@v4
+            - name: 安装依赖并打包
+              run: |
+                  npm install
+                  npm run build
+            - name: 部署
+              uses: JamesIves/github-pages-deploy-action@v4
+              with:
+                branch: gh-pages
+                folder: build
